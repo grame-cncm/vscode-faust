@@ -83,6 +83,23 @@ Open this folder in VS Code and press `F5` (**Run Extension**): a second VS Code
 VSCODE_EXECUTABLE="/Applications/Visual Studio Code.app/Contents/MacOS/Code" npm test
 ```
 
+## Publishing a release
+
+The workflow `.github/workflows/release.yml` publishes a release when a
+`v<version>` tag is pushed: it runs the tests, builds the `.vsix` and
+attaches it to a new GitHub release. The tag must match the `version` of
+`package.json`, otherwise the workflow stops. For example, for 1.3.0:
+
+```sh
+npm version 1.3.0 --no-git-tag-version   # updates package.json and package-lock.json
+git commit -am "Set version to 1.3.0."
+git tag v1.3.0
+git push origin master v1.3.0
+```
+
+Follow the run in the **Actions** tab of the repository; the release
+appears on the [releases page](https://github.com/grame-cncm/vscode-faust/releases).
+
 ## Updating the library snippets
 
 `snippets/faust-snippets.json` holds the core language snippets and is

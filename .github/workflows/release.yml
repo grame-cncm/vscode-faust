@@ -1,0 +1,50 @@
+# Builds and publishes a release when a version tag is pushed:
+#   git tag v1.2.0 && git push origin v1.2.0
+# The tag must match the version of package.json.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check that the tag matches package.json
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match package.json version ${version}"
+            exit 1
+          fi
+          echo "VERSION=${version}" >> "$GITHUB_ENV"
+
+      - run: npm ci
+
+      # The tests start VS Code, which needs a display
+      - name: Test
+        run: xvfb-run -a npm test
+
+      - name: Package
+        run: npm run package
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" "vscode-faust-${VERSION}.vsix" \
+            --title "vscode-faust ${VERSION}" \
+            --generate-notes
