@@ -2,7 +2,7 @@
 
 ![Faust Logo](images/faust-logo.png)
 
-This extension provides syntax highlighting of [Faust](https://faust.grame.fr/) source files, snippets for the core language and the standard libraries, and starts the [faustlsp](https://github.com/grame-cncm/faustlsp) language server when it is installed.
+This extension, maintained by [GRAME](https://www.grame.fr), provides syntax highlighting of [Faust](https://faust.grame.fr/) source files, snippets for the core language and the standard libraries, and starts the [faustlsp](https://github.com/grame-cncm/faustlsp) language server when it is installed.
 
 ![Screenshot](images/screenshot.png)
 
@@ -25,12 +25,12 @@ Get `vscode-faust-<version>.vsix` from the [releases page](https://github.com/gr
 * or, from a terminal:
 
   ```sh
-  code --install-extension vscode-faust-1.2.0.vsix
+  code --install-extension vscode-faust-2.0.0.vsix
   ```
 
 Reload VS Code if asked. Open a `.dsp` file: the language mode in the status bar shows **Faust**.
 
-The extension has the same identifier as the older *Faust* extension of the Marketplace (`glen-anderson.vscode-faust`, version 1.1.0), and replaces it when installed.
+The extension identifier is `grame.vscode-faust`. It is distinct from the older *Faust* extension by Glen Anderson on the Marketplace (`glen-anderson.vscode-faust`), from which it derives: uninstall that one, otherwise both provide highlighting and snippets for Faust files. When it is found, the extension offers to uninstall it.
 
 ### Build the `.vsix` from the sources
 
@@ -88,13 +88,13 @@ VSCODE_EXECUTABLE="/Applications/Visual Studio Code.app/Contents/MacOS/Code" npm
 The workflow `.github/workflows/release.yml` publishes a release when a
 `v<version>` tag is pushed: it runs the tests, builds the `.vsix` and
 attaches it to a new GitHub release. The tag must match the `version` of
-`package.json`, otherwise the workflow stops. For example, for 1.3.0:
+`package.json`, otherwise the workflow stops. For example, for 2.1.0:
 
 ```sh
-npm version 1.3.0 --no-git-tag-version   # updates package.json and package-lock.json
-git commit -am "Set version to 1.3.0."
-git tag v1.3.0
-git push origin master v1.3.0
+npm version 2.1.0 --no-git-tag-version   # updates package.json and package-lock.json
+git commit -am "Set version to 2.1.0."
+git tag v2.1.0
+git push origin master v2.1.0
 ```
 
 Follow the run in the **Actions** tab of the repository; the release

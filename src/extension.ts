@@ -15,9 +15,31 @@ import which from "which";
 
 let client: LanguageClient;
 
+// The extension this one derives from: when both are installed, both provide
+// a grammar and snippets for Faust files
+export const legacyExtensionId = "glen-anderson.vscode-faust";
+
+async function offerLegacyUninstall() {
+  if (!vscode.extensions.getExtension(legacyExtensionId)) {
+    return;
+  }
+  const uninstall = "Uninstall";
+  const choice = await vscode.window.showWarningMessage(
+    "The older Faust extension (" + legacyExtensionId + ") is also installed: " +
+    "both provide highlighting and snippets for Faust files. Uninstall it?",
+    uninstall
+  );
+  if (choice === uninstall) {
+    await vscode.commands.executeCommand("workbench.extensions.uninstallExtension", legacyExtensionId);
+    vscode.window.showInformationMessage("Reload the window to complete the uninstallation.");
+  }
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
+  void offerLegacyUninstall();
+
   const serverOptions: ServerOptions = {
     run: { command: 'faustlsp', transport: TransportKind.stdio },
     debug: { command: 'faustlsp', transport: TransportKind.stdio },

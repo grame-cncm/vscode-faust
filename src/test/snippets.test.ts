@@ -13,6 +13,17 @@ async function snippetsAt(text: string): Promise<vscode.CompletionItem[]> {
 	return list.items.filter(item => item.kind === vscode.CompletionItemKind.Snippet);
 }
 
+// Snippet files are loaded asynchronously after startup: wait up to 10 seconds
+// for the first snippets to be offered in an empty document
+async function waitForSnippets() {
+	for (let attempt = 0; attempt < 40; attempt++) {
+		if ((await snippetsAt('')).length > 0) {
+			return;
+		}
+		await new Promise(resolve => setTimeout(resolve, 250));
+	}
+}
+
 function label(item: vscode.CompletionItem): string {
 	return typeof item.label === 'string' ? item.label : item.label.label;
 }
@@ -23,6 +34,8 @@ function body(item: vscode.CompletionItem): string {
 }
 
 suite('Faust snippets', () => {
+	suiteSetup(waitForSnippets);
+
 	const root = path.resolve(__dirname, '../..');
 	const library = JSON.parse(fs.readFileSync(path.join(root, 'snippets/faust-library.json'), 'utf8'));
 	const language = JSON.parse(fs.readFileSync(path.join(root, 'snippets/faust-snippets.json'), 'utf8'));
@@ -51,5 +64,16 @@ suite('Faust snippets', () => {
 			.map((s: any) => s.body as string)
 			.filter(b => !bodies.has(b));
 		assert.deepStrictEqual(missing, []);
+	});
+});
+
+suite('Faust extension', () => {
+	test('is identified as a GRAME extension and activates on Faust files', async () => {
+		const extension = vscode.extensions.getExtension('grame.vscode-faust');
+		assert.ok(extension, 'grame.vscode-faust not found');
+		const doc = await vscode.workspace.openTextDocument({ language: 'faust', content: 'process = _;' });
+		await vscode.window.showTextDocument(doc);
+		await extension.activate();
+		assert.ok(extension.isActive, 'grame.vscode-faust not active');
 	});
 });

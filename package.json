@@ -1,9 +1,13 @@
 {
     "name": "vscode-faust",
     "displayName": "Faust",
-    "description": "Language support for the Faust DSP programming language",
-    "version": "1.2.0",
-    "publisher": "glen-anderson",
+    "description": "Faust language support by GRAME: highlighting, snippets for the standard libraries, faustlsp client",
+    "version": "2.0.0",
+    "publisher": "grame",
+    "author": {
+        "name": "GRAME",
+        "url": "https://www.grame.fr"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/grame-cncm/vscode-faust.git"
