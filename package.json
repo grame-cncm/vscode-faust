@@ -2,16 +2,20 @@
     "name": "vscode-faust",
     "displayName": "Faust",
     "description": "Language support for the Faust DSP programming language",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "publisher": "glen-anderson",
     "repository": {
-        "url": "https://github.com/hellbent/vscode-faust.git"
+        "type": "git",
+        "url": "https://github.com/grame-cncm/vscode-faust.git"
     },
-    "homepage": "https://github.com/hellbent/vscode-faust/blob/master/README.md",
+    "homepage": "https://github.com/grame-cncm/vscode-faust/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/grame-cncm/vscode-faust/issues"
+    },
     "icon": "images/faust-icon.png",
     "license": "MIT",
     "engines": {
-        "vscode": "^1.22.0"
+        "vscode": "^1.101.0"
     },
     "categories": [
         "Programming Languages",
@@ -44,32 +48,38 @@
             {
                 "language": "faust",
                 "path": "./snippets/faust-snippets.json"
+            },
+            {
+                "language": "faust",
+                "path": "./snippets/faust-library.json"
             }
         ]
     },
     "scripts": {
-	"vscode:prepublish": "npm run compile",
-	"compile": "tsc -p ./",
-	"watch": "tsc -watch -p ./",
-	"pretest": "npm run compile && npm run lint",
-	"lint": "eslint src",
-	"test": "vscode-test"
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test",
+        "package": "vsce package"
     },
     "dependencies": {
-	"glob": "^11.0.0",
-	"vsce": "^2.15.0",
-	"vscode-languageclient": "^9.0.1",
-	"which": "^3.0.0"
+        "glob": "^11.0.0",
+        "vscode-languageclient": "^9.0.1",
+        "which": "^3.0.0"
     },
     "devDependencies": {
-	"@types/node": "20.x",
-	"@types/vscode": "^1.101.0",
-	"@types/which": "^3.0.4",
-	"@vscode/test-cli": "^0.0.10",
-	"@vscode/test-electron": "^2.5.2",
-	"eslint": "^9.25.1",
-	"@typescript-eslint/eslint-plugin": "^8.31.1",
-	"@typescript-eslint/parser": "^8.31.1",
-	"typescript": "^5.8.3"
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.101.0",
+        "@types/which": "^3.0.4",
+        "@typescript-eslint/eslint-plugin": "^8.31.1",
+        "@typescript-eslint/parser": "^8.31.1",
+        "@vscode/test-cli": "^0.0.15",
+        "@vscode/test-electron": "^3.1.0",
+        "@vscode/vsce": "^4.0.0",
+        "eslint": "^9.25.1",
+        "typescript": "^5.8.3"
     }
 }
