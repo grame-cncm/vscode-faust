@@ -40,11 +40,32 @@ suite('Faust snippets', () => {
 	const library = JSON.parse(fs.readFileSync(path.join(root, 'snippets/faust-library.json'), 'utf8'));
 	const language = JSON.parse(fs.readFileSync(path.join(root, 'snippets/faust-snippets.json'), 'utf8'));
 
-	test('library function expands to its qualified name', async () => {
-		const items = await snippetsAt('process = lowp');
-		const lowpass = items.filter(item => label(item) === 'lowpass');
-		assert.ok(lowpass.some(item => body(item) === 'fi.lowpass'), 'fi.lowpass not offered');
-	});
+	// Text of the document once the snippet of the given body, offered at
+	// the end of text, is inserted
+	async function expand(text: string, snippet: string): Promise<string> {
+		const items = (await snippetsAt(text)).filter(item => body(item) === snippet);
+		assert.strictEqual(items.length, 1, snippet + ' offered ' + items.length + ' times after ' + JSON.stringify(text));
+		const range = items[0].range;
+		const editor = vscode.window.activeTextEditor!;
+		await editor.insertSnippet(items[0].insertText as vscode.SnippetString,
+			range instanceof vscode.Range ? range : range!.replacing);
+		return editor.document.getText();
+	}
+
+	const expansions: [string, string, string][] = [
+		['process = lowp', 'fi.lowpass', 'process = fi.lowpass'],
+		['process = fi.lowp', 'fi.lowpass', 'process = fi.lowpass'],
+		['process = fi.', 'fi.lowpass', 'process = fi.lowpass'],
+		['process = _ : fi.lowp', 'fi.lowpass', 'process = _ : fi.lowpass'],
+		['process = (os.osc(440), fi.lowp', 'fi.lowpass', 'process = (os.osc(440), fi.lowpass'],
+		['process = clarinet_ui', 'pm.clarinet_ui_MIDI', 'process = pm.clarinet_ui_MIDI'],
+		['process = pm.clar', 'pm.clarinet_ui_MIDI', 'process = pm.clarinet_ui_MIDI'],
+	];
+	for (const [text, snippet, expected] of expansions) {
+		test('"' + text + '" expands to ' + snippet + ', library prefix once', async () => {
+			assert.strictEqual(await expand(text, snippet), expected);
+		});
+	}
 
 	test('functions of a header with several names are offered', async () => {
 		const items = await snippetsAt('process = fft');

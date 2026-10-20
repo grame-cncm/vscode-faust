@@ -10,7 +10,7 @@ This extension, maintained by [GRAME](https://www.grame.fr), provides syntax hig
 
 * Syntax highlighting of the [Faust programming language](https://faustdoc.grame.fr/) in `.dsp` and `.lib` files.
 * Snippets for the core language (`import`, `process`, `hslider`, `with`, ...).
-* Snippets for every function documented in the libraries of `stdfaust.lib`: typing `lowpass` offers `fi.lowpass`, with the first sentence of its documentation.
+* Snippets for every function documented in the libraries of `stdfaust.lib`: typing `lowp` or `fi.lowp` offers `fi.lowpass`, with the first sentence of its documentation.
 * With faustlsp: diagnostics, hover documentation, completion, document symbols, go to definition and formatting.
 
 ## Installation
