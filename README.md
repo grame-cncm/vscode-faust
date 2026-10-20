@@ -8,10 +8,10 @@ This extension, maintained by [GRAME](https://www.grame.fr), provides syntax hig
 
 ## Features
 
-* Syntax highlighting of the [Faust programming language](https://faustdoc.grame.fr/) in `.dsp` and `.lib` files.
-* Snippets for the core language (`import`, `process`, `hslider`, `with`, ...).
-* Snippets for every function documented in the libraries of `stdfaust.lib`: typing `lowp` or `fi.lowp` offers `fi.lowpass`, with the first sentence of its documentation.
-* With faustlsp: diagnostics, hover documentation, completion, document symbols, go to definition and formatting.
+- Syntax highlighting of the [Faust programming language](https://faustdoc.grame.fr/) in `.dsp` and `.lib` files.
+- Snippets for the core language (`import`, `process`, `hslider`, `with`, ...).
+- Snippets for every function documented in the libraries of `stdfaust.lib`: typing `lowp` or `fi.lowp` offers `fi.lowpass`, with the first sentence of its documentation.
+- With faustlsp: diagnostics, hover documentation, completion, document symbols, go to definition and formatting.
 
 ## Installation
 
@@ -21,8 +21,8 @@ The extension is distributed as a `.vsix` file.
 
 Get `vscode-faust-<version>.vsix` from the [releases page](https://github.com/grame-cncm/vscode-faust/releases), or build it from the sources (see below). Then either:
 
-* in VS Code, open the Extensions view (`Cmd+Shift+X` on macOS, `Ctrl+Shift+X` elsewhere), click the `...` menu at the top of the view, choose **Install from VSIX...** and select the file;
-* or, from a terminal:
+- in VS Code, open the Extensions view (`Cmd+Shift+X` on macOS, `Ctrl+Shift+X` elsewhere), click the `...` menu at the top of the view, choose **Install from VSIX...** and select the file;
+- or, from a terminal:
 
   ```sh
   code --install-extension vscode-faust-2.0.0.vsix
@@ -30,7 +30,7 @@ Get `vscode-faust-<version>.vsix` from the [releases page](https://github.com/gr
 
 Reload VS Code if asked. Open a `.dsp` file: the language mode in the status bar shows **Faust**.
 
-The extension identifier is `grame.vscode-faust`. It is distinct from the older *Faust* extension by Glen Anderson on the Marketplace (`glen-anderson.vscode-faust`), from which it derives: uninstall that one, otherwise both provide highlighting and snippets for Faust files. When it is found, the extension offers to uninstall it.
+The extension identifier is `grame.vscode-faust`. It is distinct from the older _Faust_ extension by Glen Anderson on the Marketplace (`glen-anderson.vscode-faust`), from which it derives: uninstall that one, otherwise both provide highlighting and snippets for Faust files. When it is found, the extension offers to uninstall it.
 
 ### Build the `.vsix` from the sources
 
@@ -70,8 +70,8 @@ Otherwise the extension shows a warning when a Faust file is opened, and only hi
 
 ## Requirements
 
-* [Faust](https://github.com/grame-cncm/faust/releases) 2.5 or greater
-* VS Code 1.101 or greater
+- [Faust](https://github.com/grame-cncm/faust/releases) 2.5 or greater
+- VS Code 1.101 or greater
 
 ## Development
 
@@ -117,5 +117,5 @@ python3 ../tools/faust2appls/faust2atomsnippets -j \
 
 ## Acknowlegements
 
-* The language grammar and snippets were derived in part from the [atom syntax highlighting plugin for Faust](https://github.com/grame-cncm/faust/tree/master-dev/syntax-highlighting/atom/language-faust) and released under [this license](https://github.com/grame-cncm/faust/blob/master-dev/syntax-highlighting/atom/language-faust/LICENSE.md). Thanks to Yann Orlarey ([@lrlarey](https://github.com/orlarey)) and other contributors for their work!
-* The extension was first written by Glen Anderson ([hellbent/vscode-faust](https://github.com/hellbent/vscode-faust)); the faustlsp client was added by [carn181](https://github.com/carn181/vscode-faust-original).
+- The language grammar and snippets were derived in part from the [atom syntax highlighting plugin for Faust](https://github.com/grame-cncm/faust/tree/master-dev/syntax-highlighting/atom/language-faust) and released under [this license](https://github.com/grame-cncm/faust/blob/master-dev/syntax-highlighting/atom/language-faust/LICENSE.md). Thanks to Yann Orlarey ([@orlarey](https://github.com/orlarey)) and other contributors for their work!
+- The extension was first written by Glen Anderson ([hellbent/vscode-faust](https://github.com/hellbent/vscode-faust)); the faustlsp client was added by [carn181](https://github.com/carn181/vscode-faust-original).
